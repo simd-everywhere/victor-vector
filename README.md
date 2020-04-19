@@ -40,8 +40,20 @@ The major differences compared to the official APIs:
    instead of char, short, unsigned short, etc.).
  * There are C and C++ APIs.
 
-Victor should offer exactly the same performance as the Intel APIs,
-just with a better (IMHO) API.
+There are also lots of minor differences to deal with small annoyances
+in the Intel APIs, such as:
+
+ * The functions for setting vectors don't take their arguments in
+   reverse order (*i.e.*, arguments are e0, e1, e2... instead of
+   e2, e1, e0, and we use setr internally).
+ * The `and_not` functions are in the order that makes sense if you're
+   reading the API; *e.g.*, `and_not(a, b)` is `a & ~b` not `~a & b`.
+ * Some superflous functions are omitted.  For example nothing will
+   map to `_mm_cmpnlt_ps`, though there are functions which map to
+   `_mm_cmpgt_ps`.
+
+Victor should offer the same performance as the Intel APIs, just with a
+better (IMHO) API.
 
 ## Why Bother?
 
