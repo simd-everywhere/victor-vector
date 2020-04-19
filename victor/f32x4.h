@@ -48,6 +48,7 @@
             inline f32x4(__m128 value);
             inline __m128 to_native(void);
             inline f32x4(float value);
+            inline f32x4(float e0, float e1, float e2, float e3);
             inline f32x4 operator+(f32x4 a);
             inline f32x4 operator&(f32x4 a);
             inline f32x4 and_not(f32x4 a);
@@ -96,6 +97,7 @@
         inline f32x4::f32x4(__m128 value) :n(value) { };
         inline __m128 f32x4::to_native() { return n; }
         inline f32x4::f32x4(float value) :n(_mm_set1_ps(value)) { };
+        inline f32x4::f32x4(float e0, float e1, float e2, float e3) :n(_mm_setr_ps(e0, e1, e2, e3)) { };
         inline f32x4 f32x4::operator+(f32x4 a) { return f32x4(_mm_add_ps(n, a.to_native())); };
         inline f32x4 f32x4::operator&(f32x4 a) { return f32x4(_mm_and_ps(n, a.to_native())); };
         inline f32x4 f32x4::and_not(f32x4 a) { return f32x4(_mm_andnot_ps(a.to_native(), n)); };
@@ -122,6 +124,10 @@
 
       static inline victor_f32x4 victor_f32x4_set1(float value) {
         return victor_f32x4_from_native(_mm_set1_ps(value));
+      }
+
+      static inline victor_f32x4 victor_f32x4_set(float e0, float e1, float e2, float e3) {
+        return victor_f32x4_from_native(_mm_setr_ps(e0, e1, e2, e3));
       }
 
       static inline void victor_f32x4_store(float dest[HEDLEY_ARRAY_PARAM(4)], victor_f32x4 src) {
