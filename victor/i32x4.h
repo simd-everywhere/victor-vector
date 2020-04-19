@@ -55,6 +55,7 @@
             inline void store(int32_t values[HEDLEY_ARRAY_PARAM(4)]);
 
             inline f32x4 to_f32x4(void);
+            inline f32x4 as_f32x4(void);
         };
       }
     #endif /* defined(VICTOR_ENABLE_CXX_API) */
@@ -101,7 +102,8 @@
         inline i32x4 i32x4::and_not(i32x4 a) { return i32x4(_mm_andnot_si128(n, a.to_native())); };
         inline void i32x4::store(int32_t dest[HEDLEY_ARRAY_PARAM(4)]) { _mm_storeu_si128(HEDLEY_REINTERPRET_CAST(__m128i*, dest), n); }
 
-        inline f32x4 i32x4::to_f32x4(void) { return f32x4(_mm_castsi128_ps(n)); };
+        inline f32x4 i32x4::to_f32x4(void) { return f32x4(_mm_cvtepi32_ps(n)); };
+        inline f32x4 i32x4::as_f32x4(void) { return f32x4(_mm_castsi128_ps(n)); };
       }
     #endif /* defined(VICTOR_ENABLE_CXX_API) */
 
@@ -132,6 +134,10 @@
 
       static inline victor_f32x4 victor_i32x4_to_f32x4(victor_i32x4 src) {
         return victor_f32x4_from_native(_mm_cvtepi32_ps(victor_i32x4_to_native(src)));
+      }
+
+      static inline victor_f32x4 victor_i32x4_as_f32x4(victor_i32x4 src) {
+        return victor_f32x4_from_native(_mm_castsi128_ps(victor_i32x4_to_native(src)));
       }
     #endif /* defined(VICTOR_ENABLE_C_API) */
   #endif /* ? defined(VICTOR_I32X4_FORWARD_DECLARE_H) */
