@@ -31,6 +31,9 @@ The Victor Vector Library is intended to be an alternative to the
 official x86 SIMD APIs.  Basically, I've never liked Intel's API,
 and Victor is what I wish the Intel APIs looked like.
 
+Victor is **not** intended to provide additional functionality.  It
+is *just* a replacement for Intel's APIs.
+
 The major differences compared to the official APIs:
 
  * Doesn't require aliasing in your code.

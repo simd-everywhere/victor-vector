@@ -175,14 +175,17 @@
  */
 
 /* Forward declarations */
+#include "i8x16.h"
 #include "i32x4.h"
 #include "f32x4.h"
 
 /* Declarations */
+#include "i8x16.h"
 #include "i32x4.h"
 #include "f32x4.h"
 
 /* Definitions */
+#include "i8x16.h"
 #include "i32x4.h"
 #include "f32x4.h"
 
