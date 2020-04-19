@@ -50,6 +50,7 @@
             inline i32x4(int32_t value);
             inline i32x4 operator+(i32x4 a);
             inline i32x4 operator&(i32x4 a);
+            inline i32x4 and_not(i32x4 a);
             inline void store(int32_t values[HEDLEY_ARRAY_PARAM(4)]);
 
             inline f32x4 to_f32x4(void);
@@ -95,6 +96,7 @@
         inline i32x4::i32x4(int32_t value) :n(_mm_set1_epi32(value)) { };
         inline i32x4 i32x4::operator+(i32x4 a) { return i32x4(_mm_add_epi32(n, a.to_native())); };
         inline i32x4 i32x4::operator&(i32x4 a) { return i32x4(_mm_and_si128(n, a.to_native())); };
+        inline i32x4 i32x4::and_not(i32x4 a) { return i32x4(_mm_andnot_si128(n, a.to_native())); };
         inline void i32x4::store(int32_t dest[HEDLEY_ARRAY_PARAM(4)]) { _mm_storeu_si128(HEDLEY_REINTERPRET_CAST(__m128i*, dest), n); }
 
         inline f32x4 i32x4::to_f32x4(void) { return f32x4(_mm_castsi128_ps(n)); };
@@ -108,6 +110,10 @@
 
       static inline victor_i32x4 victor_i32x4_and(victor_i32x4 a, victor_i32x4 b) {
         return victor_i32x4_from_native(_mm_and_si128(victor_i32x4_to_native(a), victor_i32x4_to_native(b)));
+      }
+
+      static inline victor_i32x4 victor_i32x4_andnot(victor_i32x4 a, victor_i32x4 b) {
+        return victor_i32x4_from_native(_mm_andnot_si128(victor_i32x4_to_native(b), victor_i32x4_to_native(a)));
       }
 
       static inline victor_i32x4 victor_i32x4_set1(int32_t value) {
